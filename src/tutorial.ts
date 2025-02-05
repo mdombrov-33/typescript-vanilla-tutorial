@@ -49,3 +49,41 @@ discount = "10%";
 let orderStatus: "pending" | "completed" | "cancelled" = "pending";
 // orderStatus = "shipped"; // Error: Type '"shipped"' is not assignable to type '"pending" | "completed" | "cancelled"'
 orderStatus = "completed";
+
+//Arrays and objects
+// let prices: number[] = [10, 20, "hello"]; // Error: Type 'string' is not assignable to type 'number'
+let names: string[] = ["John", "Doe", "Jane"];
+let array: (string | number)[] = ["John", 10, "Doe", 20];
+
+let car: {
+  brand: string;
+  year: number;
+} = {
+  brand: "Toyota",
+  year: 2020,
+};
+
+// Example
+let book = {
+  title: "book",
+  cost: 10,
+};
+
+let pen = {
+  title: "pen",
+  cost: 5,
+};
+
+let notebook = {
+  title: "notebook",
+};
+
+let items: { readonly title: string; cost?: number }[] = [book, pen, notebook];
+// items[0].title = "new book"; // Error: Cannot assign to 'title' because it is a read-only property
+
+let bike: { brand: string; year: number } = {
+  brand: "Yamaha",
+  year: 2020,
+};
+
+// bike.year = "old"; // Error: Type '"old"' is not assignable to type 'number'
