@@ -105,3 +105,51 @@ function calculateDiscount(price: number): number {
 }
 
 const finalPrice = calculateDiscount(100);
+
+// Optional parameters, default parameters and rest parameters
+function calculatePrice(price: number, discount?: number): number {
+  // ? if we want to make it optional
+  return price - (discount || 0); // || 0 if we want to add default value because discount may be undefined
+}
+
+let priceAfterDiscount = calculatePrice(100, 10);
+////////
+function calculateScore(initialScore: number, penalty: number = 0): number {
+  return initialScore - penalty;
+}
+
+let scoreAfterPenalty = calculateScore(100, 10);
+let scoreWithoutPenalty = calculateScore(300);
+/////////////
+
+function sum(message: string, ...numbers: number[]): string {
+  const doubled = numbers.map((num) => num * 2);
+  console.log(doubled);
+
+  let total = numbers.reduce((acc, num) => acc + num, 0);
+
+  return `${message}${total}`;
+}
+
+let result = sum("The total is : ", 1, 2, 3, 4, 5);
+/////////
+function logMessage(message: string): void {
+  console.log(message);
+}
+
+logMessage("Hello, Typescript");
+
+function processInput(input: string | number) {
+  if (typeof input === "number") {
+    return input * 2;
+    console.log(input);
+  } else {
+    return input.toUpperCase();
+    console.log(input);
+  }
+}
+
+let result1 = processInput(10);
+let result2 = processInput("hello");
+console.log(result1);
+console.log(result2);
