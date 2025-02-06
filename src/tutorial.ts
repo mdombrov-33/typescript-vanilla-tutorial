@@ -87,3 +87,21 @@ let bike: { brand: string; year: number } = {
 };
 
 // bike.year = "old"; // Error: Type '"old"' is not assignable to type 'number'
+
+// Functions
+function sayHello(name: string) {
+  console.log(`Hello ${name}`);
+}
+
+// - any or
+// - config or
+// - type
+
+// sayHello(5); // Error: Argument of type 'number' is not assignable to parameter of type 'string'
+sayHello("John");
+
+function calculateDiscount(price: number): number {
+  return price * 0.9;
+}
+
+const finalPrice = calculateDiscount(100);
