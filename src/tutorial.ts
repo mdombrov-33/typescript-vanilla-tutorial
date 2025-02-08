@@ -153,3 +153,51 @@ let result1 = processInput(10);
 let result2 = processInput("hello");
 console.log(result1);
 console.log(result2);
+
+// Objects as parameters and excess property checks
+// function createEmployee({ id }: { id: number }): {
+//   id: number;
+//   isActive: boolean;
+// } {
+//   return {
+//     id,
+//     isActive: id % 2 === 0,
+//   };
+// }
+
+// const firstEmployee = createEmployee({ id: 1 });
+// const secondEmployee = createEmployee({ id: 2 });
+// console.log(firstEmployee);
+// console.log(secondEmployee);
+
+// alternative
+function createStudent(student: { id: number; name: string }): void {
+  console.log(`Welcome, ${student.name.toUpperCase()}`);
+}
+
+const student = {
+  id: 1,
+  name: "John",
+};
+
+createStudent(student);
+
+// Excess property checks
+createStudent({ id: 1, name: "Aboba", age: 20 }); // Error: Object literal may only specify known properties, and 'age' does not exist in type '{ id: number; name: string; }'
+///////////////////////
+function processData(
+  input: string | number,
+  config: { reverse: boolean } = { reverse: false }
+): string | number {
+  if (typeof input === "number") {
+    return input * 2;
+  } else {
+    return config.reverse
+      ? input.toUpperCase().split("").reverse().join("")
+      : input.toUpperCase();
+  }
+}
+
+console.log(processData(10));
+console.log(processData("Hello"));
+console.log(processData("Hello", { reverse: true }));
