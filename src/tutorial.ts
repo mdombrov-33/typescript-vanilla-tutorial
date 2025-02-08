@@ -201,3 +201,79 @@ function processData(
 console.log(processData(10));
 console.log(processData("Hello"));
 console.log(processData("Hello", { reverse: true }));
+
+// Type alias and intersection types
+
+type User = { id: number; name: string; isActive: boolean };
+
+const bob: User = {
+  id: 1,
+  name: "john",
+  isActive: true,
+};
+const abob: User = {
+  id: 1,
+  name: "susan",
+  isActive: false,
+};
+
+function createUser(user: User): User {
+  console.log(`Hello there ${user.name.toUpperCase()} !!!`);
+  return user;
+}
+
+type StringOrNumber = string | number; // Type alias for string | number
+
+let value: StringOrNumber;
+value = "hello"; // This is valid
+value = 123; // This is also valid
+
+type Theme = "light" | "dark"; // Type alias for theme
+
+let theme: Theme;
+theme = "light"; // This is valid
+theme = "dark"; // This is also valid
+
+// Function that accepts the Theme type alias
+function setTheme(t: Theme) {
+  theme = t;
+}
+
+setTheme("dark"); // This will set the theme to 'dark'
+/////////////////////
+type Employee = { id: number; name: string; department: string };
+type Manager = { id: number; name: string; employees: Employee[] };
+
+type Staff = Employee | Manager;
+
+function printStaffDetails(staff: Staff): void {
+  if ("employees" in staff) {
+    console.log(
+      `Manager: ${staff.name} of ${staff.employees.length} employees`
+    );
+  } else {
+    console.log(`${staff.name} works in ${staff.department} department`);
+  }
+}
+
+const alice: Employee = { id: 1, name: "Alice", department: "Engineering" };
+const steve: Employee = { id: 2, name: "Steve", department: "Marketing" };
+
+const jack: Manager = { id: 3, name: "Jack", employees: [alice, steve] };
+
+printStaffDetails(alice);
+printStaffDetails(jack);
+
+//Intersection types
+type Book = { id: number; title: string; price: number };
+// type DiscountedBook = Book & { discount: number };
+
+const book1: Book = { id: 1, title: "The Alchemist", price: 10 };
+const book2: Book = { id: 2, title: "The Power of Now", price: 15 };
+
+const discountedBook: Book & { discount: number } = {
+  id: 3,
+  title: "The Art of War",
+  price: 20,
+  discount = 0.1,
+};
