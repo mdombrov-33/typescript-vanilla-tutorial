@@ -275,5 +275,51 @@ const discountedBook: Book & { discount: number } = {
   id: 3,
   title: "The Art of War",
   price: 20,
-  discount = 0.1,
+  discount: 0.1,
 };
+
+// Interfaces - define the shape of an object or a function
+interface Book1 {
+  readonly id: number;
+  title: string;
+  author: string;
+  genre?: string;
+  //method
+  printAuthor(): void;
+}
+
+const deepWork: Book1 = {
+  id: 1,
+  title: "Deep Work",
+  author: "Cal Newport",
+  genre: "Self-help",
+  printAuthor() {
+    console.log(this.author);
+  },
+};
+
+deepWork.printAuthor();
+
+// Example of interfaces
+interface Computer {
+  readonly id: number;
+  brand: string;
+  ram: number;
+  upgradeRam(increase: number): number;
+  storage?: number;
+}
+
+const laptop: Computer = {
+  id: 1,
+  brand: "random",
+  ram: 8,
+  upgradeRam(amount) {
+    this.ram += amount;
+    return this.ram;
+  },
+};
+
+laptop.storage = 256;
+console.log(laptop);
+laptop.upgradeRam(8);
+console.log(laptop);
