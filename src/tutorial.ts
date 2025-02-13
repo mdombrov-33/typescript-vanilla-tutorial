@@ -323,3 +323,108 @@ laptop.storage = 256;
 console.log(laptop);
 laptop.upgradeRam(8);
 console.log(laptop);
+
+// Interface advanced
+interface Person {
+  name: string;
+  getDetails(): string;
+}
+
+interface DogOwner {
+  dogName: string;
+  getDogDetails(): string;
+}
+
+interface Person {
+  age: number;
+}
+
+const person: Person = {
+  name: "John",
+  age: 30,
+  getDetails() {
+    return `Name: ${this.name}, Age: ${this.age}`;
+  },
+};
+
+interface Employee1 extends Person {
+  employeeId: number;
+}
+
+const employee: Employee1 = {
+  name: "Jane",
+  age: 25,
+  employeeId: 1,
+  getDetails() {
+    return `Name: ${this.name}, Age: ${this.age}, Employee ID: ${this.employeeId}`;
+  },
+};
+
+console.log(person.getDetails());
+
+interface Manager22 extends Person, DogOwner {
+  managePeople(): void;
+}
+
+const manager: Manager22 = {
+  name: "Bob",
+  age: 40,
+  dogName: "Buddy",
+  getDetails() {
+    return `Name: ${this.name}, Age: ${this.age}`;
+  },
+  getDogDetails() {
+    return `Dog name: ${this.dogName}`;
+  },
+  managePeople() {
+    console.log("Managing people");
+  },
+};
+
+console.log(manager.getDetails());
+console.log(manager.getDogDetails());
+manager.managePeople();
+
+// Task for extending interfaces
+interface Person66 {
+  name: string;
+}
+
+interface DogOwner66 extends Person66 {
+  dogName: string;
+}
+
+interface Manager66 extends Person66 {
+  managePeople(): void;
+  delegateTasks(): void;
+}
+
+function getEmployee66(): Person66 | DogOwner66 | Manager66 {
+  const random = Math.random();
+  if (random < 0.33) {
+    return { name: "John" };
+  } else if (random < 0.66) {
+    return { name: "Bob", dogName: "Alice" };
+  } else {
+    return {
+      name: "Jack",
+      managePeople() {
+        console.log("Managing people");
+      },
+      delegateTasks() {
+        console.log("Delegating tasks");
+      },
+    };
+  }
+}
+
+const employee66: Person66 | DogOwner66 | Manager66 = getEmployee66();
+console.log(employee66);
+
+function isManager(obj: Person66 | DogOwner66 | Manager66): obj is Manager66 {
+  return "managePeople" in obj;
+}
+
+if (isManager(employee66)) {
+  employee66.delegateTasks();
+}
