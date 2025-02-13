@@ -493,3 +493,99 @@ const user888: User = createUser66({
   role: UserRole.Admin,
   contact: ["aboba.gmail.com", "123456"],
 });
+
+// Type assertion, type unknown and type never
+// 1. Type Assertion (as or < >)
+// Type assertion tells TypeScript to treat a value as a specific type without changing the actual value.
+// It's useful when you know more about the type than TypeScript does.
+
+// (value as Type)    // Preferred syntax
+// (<Type>value)      // Alternative (Not recommended in JSX)
+// Example:
+let input: unknown = "Hello, Maksym!";
+let strLength: number = (input as string).length;
+
+console.log(strLength); // Output: 14
+// input is unknown, but we assert it as a string to access .length.
+// Example: Type Assertion with DOM Elements
+const inputElement = document.getElementById("myInput") as HTMLInputElement;
+inputElement.value = "Hello!";
+//
+
+let num = "123" as number; // ❌ Error: Type 'string' cannot be converted to 'number'
+// 2. unknownTypeScript doesn’t know getElementById() returns an HTMLInputElement, so we assert it.
+// ⚠️ Type Assertion vs Type Casting
+// Type assertion does not change the actual data type at runtime.
+// Wrong assertions can lead to errors: Type
+// unknown is a type-safe alternative to any.
+// It means: "I don’t know what this is, but TypeScript should enforce checks before using it."
+
+// Example: unknown vs any
+let value: unknown;
+
+// value = "Hello";  // ✅ Allowed
+// value = 42;       // ✅ Allowed
+// value = true;     // ✅ Allowed
+
+let str: string;
+// str = value;  // ❌ Error: Type 'unknown' is not assignable to type 'string'
+// Unlike any, you must check the type before using unknown.
+// Checking Type Before Using unknown
+// typescript
+
+if (typeof value === "string") {
+  console.log(value.toUpperCase()); // ✅ Safe to use string methods
+}
+// When to Use unknown?
+// ✅ When you receive dynamic data (e.g., API responses).
+// ✅ When dealing with user inputs.
+// ✅ When you need strict type-checking.
+
+// 3. never Type
+// The never type represents values that never happen.
+// A function returning never never completes (throws an error or runs forever).
+
+// Example 1: Function That Always Throws
+// typescript
+
+function throwError(message: string): never {
+  throw new Error(message);
+}
+// This function never returns because it always throws an error.
+// Example 2: Function That Never Ends (Infinite Loop)
+// typescript
+
+function infiniteLoop(): never {
+  while (true) {
+    console.log("Running forever...");
+  }
+}
+// This function runs forever and never returns a value.
+// Example 3: Exhaustive Type Checking
+// The never type is useful for exhaustive type checking in switch statements.
+
+// typescript
+
+type Status = "success" | "error" | "loading";
+
+function handleStatus(status: Status) {
+  switch (status) {
+    case "success":
+      console.log("Success!");
+      break;
+    case "error":
+      console.log("Error!");
+      break;
+    case "loading":
+      console.log("Loading...");
+      break;
+    default:
+      const check: never = status; // ❌ If a new case is added, TypeScript warns us!
+  }
+}
+// If we add a new status (e.g., "pending"), TypeScript will throw an error to remind us to update the switch.
+// Summary
+// Concept	Description	Example
+// Type Assertion	Manually tells TypeScript what type a value should be	let value = input as string;
+// unknown	Type-safe any that requires checks before use	let data: unknown; if (typeof data === "string") {}
+// never	Represents values that never occur (errors, infinite loops)	function fail(): never { throw new Error("Oops!"); }
