@@ -428,3 +428,68 @@ function isManager(obj: Person66 | DogOwner66 | Manager66): obj is Manager66 {
 if (isManager(employee66)) {
   employee66.delegateTasks();
 }
+
+// Tuple
+let person77: [string, number] = ["John", 30];
+
+let date77: readonly [number, number, number] = [2021, 10, 10];
+date77.push(34);
+
+function getPerson(): [string, number] {
+  return ["John", 30];
+}
+
+const randomPerson = getPerson();
+console.log(randomPerson[0]);
+console.log(randomPerson[1]);
+
+let susan: [string, number?] = ["Susan"];
+
+//Enums
+enum ServerResponseStatus {
+  Success = 200,
+  Error = "Error",
+}
+
+Object.values(ServerResponseStatus).values;
+
+interface ServerResponse {
+  result: ServerResponseStatus;
+  data: string[];
+}
+
+function getServerResponse(): ServerResponse {
+  return {
+    result: ServerResponseStatus.Success,
+    data: ["Data1", "Data2"],
+  };
+}
+
+const response = getServerResponse();
+console.log(response);
+
+// Enum example
+
+enum UserRole {
+  Admin,
+  Manager,
+  Employee,
+}
+
+type User66 = {
+  id: number;
+  name: string;
+  role: UserRole;
+  contact: [string, string];
+};
+
+function createUser66(user: User66): User66 {
+  return user;
+}
+
+const user888: User = createUser66({
+  id: 1,
+  name: "John",
+  role: UserRole.Admin,
+  contact: ["aboba.gmail.com", "123456"],
+});
