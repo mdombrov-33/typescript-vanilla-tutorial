@@ -597,3 +597,79 @@ function handleStatus(status: Status) {
 //2. Use export and import keywords
 //3. Use type="module" in the script tag in the HTML file
 //4. Use a server to run the code
+
+// Type guards
+// Type guards are a way to check the type of a variable at runtime.
+// They help TypeScript understand the type of a variable in a conditional block.
+
+// Typeof Type Guards
+type ValueType = string | number | boolean;
+
+let value66: ValueType;
+const random = Math.random();
+value66 = random < 0.33 ? "Hello" : random < 0.66 ? 42 : true;
+
+function checkValue66(value: ValueType): void {
+  if (typeof value === "string") {
+    console.log(value.toUpperCase());
+  }
+  if (typeof value === "number") {
+    console.log(value.toFixed(2));
+  }
+  if (typeof value === "boolean") {
+    console.log(value ? "Yes" : "No");
+  }
+}
+
+//Equality Narrowing Type Guards
+type Dog66 = { type: "dog"; name: string; bark: () => void };
+type Cat66 = { type: "cat"; name: string; meow: () => void };
+type Pet66 = Dog66 | Cat66;
+
+//1
+// function makeSound(pet: Pet66): void {
+//   if (pet.type === "dog") {
+//     pet.bark();
+//   }
+//   if (pet.type === "cat") {
+//     pet.meow();
+//   }
+// }
+
+//2
+function makeSound(pet: Pet66): void {
+  if ("bark" in pet) {
+    pet.bark();
+  } else {
+    pet.meow();
+  }
+}
+
+// Truthy/Falsy Type Guards
+function printLength(str: string | null | undefined) {
+  if (str) {
+    console.log(str.length);
+  } else {
+    console.log("No value");
+  }
+}
+
+printLength("Hello"); // Output: 5
+printLength(null); // Output: No value
+printLength(undefined); // Output: No value
+
+// Instanceof Type Guards
+// try {
+//   throw new Error("Oops!");
+// } catch (error) {
+//   if (error instanceof Error) {
+//     console.log(error.message);
+//   }
+// }
+
+function checkInput(input: Date | string): string {
+  if (input instanceof Date) {
+    return input.toISOString();
+  }
+  return input.toUpperCase();
+}
