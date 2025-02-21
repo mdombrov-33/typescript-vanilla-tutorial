@@ -589,3 +589,11 @@ function handleStatus(status: Status) {
 // Type Assertion	Manually tells TypeScript what type a value should be	let value = input as string;
 // unknown	Type-safe any that requires checks before use	let data: unknown; if (typeof data === "string") {}
 // never	Represents values that never occur (errors, infinite loops)	function fail(): never { throw new Error("Oops!"); }
+
+// ES6 modules
+// By default everything is put in the global scope. To avoid that we can use modules.
+// To fix that we can:
+//1. Go to tsconfig.json and set "moduleDetection": "force"
+//2. Use export and import keywords
+//3. Use type="module" in the script tag in the HTML file
+//4. Use a server to run the code
