@@ -707,3 +707,40 @@ if (isStudent88(person99)) {
 } else {
   person99.login();
 }
+
+// Discriminated Unions
+// Discriminated unions are a way to combine types that have a common property.
+
+type IncrementAction = {
+  type: "increment";
+  amount: number;
+  timestamp: number;
+  user: string;
+};
+
+type DecrementAction = {
+  type: "decrement";
+  amount: number;
+  timestamp: number;
+  user: string;
+};
+
+type Action = IncrementAction | DecrementAction;
+
+function reducer(state: number, action: Action) {
+  switch (action.type) {
+    case "increment":
+      return state + action.amount;
+    case "decrement":
+      return state - action.amount;
+    default:
+      return state;
+  }
+}
+
+const newState = reducer(15, {
+  type: "increment",
+  user: "John",
+  amount: 10,
+  timestamp: Date.now(),
+});
