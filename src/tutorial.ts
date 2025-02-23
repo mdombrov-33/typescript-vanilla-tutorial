@@ -1,4 +1,4 @@
-// Type Annotations
+(// Type Annotations
 let name: string = "John";
 // name = 5; // Error: Type '5' is not assignable to type 'string'
 name = name.toUpperCase(); // We get intellisense for the string methods
@@ -744,3 +744,80 @@ const newState = reducer(15, {
   amount: 10,
   timestamp: Date.now(),
 });
+
+//Generics
+// Generics are a way to create reusable components that can work with different types.
+// They allow us to define the type of a function or a class at runtime.
+
+// let array1: string[] = ["Apple", "Banana", "Orange"];
+// let array2: number[] = [1, 2, 3];
+// let array3: boolean[] = [true, false, false];
+
+let array1: Array<string> = ["Apple", "Banana", "Orange"];
+////////////
+// function createString(arg: string): string {
+//   return arg;
+// }
+
+// function createNumber(arg: number): number {
+//   return arg;
+// }
+////////////////
+function genericFunction<T>(arg: T): T {
+  return arg;
+}
+
+const someStringValue = genericFunction<string>("Hello");
+const someNumberValue = genericFunction<number>(42);
+const someBooleanValue = genericFunction<boolean>(true);
+
+interface GenericInterface<T> {
+  value: T;
+  getValue: () => T;
+}
+
+const genericString: GenericInterface<string> = {
+  value: "Hello",
+  getValue() {
+    return this.value;
+  },
+};
+
+async function someFunction(): Promise<string> {
+  return "Hello";
+}
+
+const result100 = someFunction();
+///////////
+
+// function generateStringArray(length: number, value: string) : string[] {
+//   let result: string[] = [];
+//   result = Array(length).fill(value);
+//   return result;
+// }
+
+function createArray<T>(length: number, value: T): Array<T> {
+ let result: T[] = [];
+ result = Array(length).fill(value);
+  return result;
+}
+
+let arrayOfStrings = createArray<string>(3, "Hello");
+let arrayOfNumbers = createArray<number>(5, 42);
+let arrayOfBooleans = createArray<boolean>(2, true);
+//////////////
+
+function pair<T, U>(param1: T, param2: U): [T, U] {
+  return [param1, param2];
+}
+
+const pair1 = pair<string, number>("Hello", 42);
+const pair2 = pair<number, boolean>(42, true);
+const pair3 = pair<boolean, string>(true, "Hello");
+/////////
+
+function processValue<T extends string>(value: T): T{
+  return value;
+}
+
+const processedValue = processValue("Hello");
