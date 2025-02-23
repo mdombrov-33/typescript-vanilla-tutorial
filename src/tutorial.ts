@@ -673,3 +673,37 @@ function checkInput(input: Date | string): string {
   }
   return input.toUpperCase();
 }
+
+// Type predicate functions
+// Type predicate is a function that returns a special type that can be used to narrow down types withing conditional blocks.
+// It's a way to define a custom type guard.
+type Student88 = {
+  name: string;
+  study: () => void;
+};
+
+type User88 = {
+  name: string;
+  login: () => void;
+};
+
+type Person88 = Student88 | User88;
+
+const randomPerson88 = (): Person88 => {
+  return Math.random() > 0.5
+    ? { name: "john", study: () => console.log("Studying") }
+    : { name: "mary", login: () => console.log("Logging in") };
+};
+
+const person99 = randomPerson88();
+
+function isStudent88(person: Person88): person is Student88 {
+  // return "study" in person;
+  return (person as Student88).study !== undefined;
+}
+
+if (isStudent88(person99)) {
+  person99.study();
+} else {
+  person99.login();
+}
