@@ -821,3 +821,39 @@ function processValue<T extends string>(value: T): T{
 }
 
 const processedValue = processValue("Hello");
+
+
+// Fetch data from API
+const url = "https://jsonplaceholder.typicode.com/posts";
+
+type Tour = {
+  id: string,
+  name: string,
+  info: string,
+  image: string,
+  price: string,
+  
+}
+
+
+
+async function fetchData(url:string): Promise<Tour[]>{
+  try{
+const response = await fetch(url);
+if(!response.ok){
+  throw new Error(`HTTP error! status: ${response.status} `)
+}
+const data = await response.json();
+return data;
+  }catch(error)
+  {
+    const errMsg = error instanceof Error ? error.message : "An error occurred";
+    console.error(errMsg);
+    return [];
+  }
+}
+
+const tours = await fetchData(url);
+tours.map(() => {
+
+})
